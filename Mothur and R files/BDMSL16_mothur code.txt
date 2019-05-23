@@ -1,0 +1,444 @@
+#mothur v.1.39.5
+##make contigs
+make.contigs(file=BDMSL16.files, oligos=make.oligos.txt, processors=8)
+##Total of all groups is 12227555
+
+Output File Names: 
+BDMSL16.trim.contigs.fasta
+BDMSL16.trim.contigs.qual
+BDMSL16.contigs.report
+BDMSL16.scrap.contigs.fasta
+BDMSL16.scrap.contigs.qual
+BDMSL16.contigs.groups
+
+summary.seqs(fasta=BDMSL16.trim.contigs.fasta)
+## of Seqs:	12227555
+
+Output File Names: 
+BDMSL16.trim.contigs.summary
+
+summary.seqs(fasta=current)
+## of Seqs:	12227555
+
+Output File Names: 
+BDMSL16.trim.contigs.summary
+
+screen.seqs(fasta=BDMSL16.trim.contigs.fasta, group=BDMSL16.contigs.groups, maxambig=0, maxlength=275)
+##Output File Names: 
+BDMSL16.trim.contigs.good.fasta
+BDMSL16.trim.contigs.bad.accnos
+BDMSL16.contigs.good.groups
+
+summary.seqs(fasta=current)
+## of Seqs:	11142076
+
+Output File Names: 
+BDMSL16.trim.contigs.good.summary
+
+unique.seqs(fasta=BDMSL16.trim.contigs.good.fasta)
+##11142076	1198611
+
+#Output File Names: 
+BDMSL16.trim.contigs.good.names
+BDMSL16.trim.contigs.good.unique.fasta
+
+summary.seqs(fasta=current,name=current)
+# # of unique seqs:	1198611
+total # of seqs:	11142076
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.summary
+
+count.seqs(name=BDMSL16.trim.contigs.good.names, group=BDMSL16.contigs.good.groups)
+#Total number of sequences: 11142076
+
+Output File Names: 
+BDMSL16.trim.contigs.good.count_table
+
+summary.seqs(fasta=BDMSL16.trim.contigs.good.unique.fasta,count=current)
+## of unique seqs:	1198611
+total # of seqs:	11142076
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.summary
+
+pcr.seqs(fasta=ecoli16srrna.fasta, oligos=pcrtest.oligos.txt)
+#Output File Names: 
+ecoli16srrna.pcr.fasta
+
+align.seqs(fasta=ecoli16srrna.pcr.fasta, reference=silva.bacteria.fasta)
+#Output File Names: 
+ecoli16srrna.pcr.align
+ecoli16srrna.pcr.align.report
+
+summary.seqs(fasta=ecoli16srrna.pcr.align)
+
+Using 1 processors.
+
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+Minimum:	13862	23444	253	0	6	1
+2.5%-tile:	13862	23444	253	0	6	1
+25%-tile:	13862	23444	253	0	6	1
+Median: 	13862	23444	253	0	6	1
+75%-tile:	13862	23444	253	0	6	1
+97.5%-tile:	13862	23444	253	0	6	1
+Maximum:	13862	23444	253	0	6	1
+Mean:	13862	23444	253	0	6
+## of Seqs:	1
+
+Output File Names: 
+ecoli16srrna.pcr.summary
+
+pcr.seqs(fasta=silva.bacteria.fasta,start=13862,end=23444,keepdots=F,processors=8)
+#Output File Names: 
+silva.bacteria.pcr.fasta
+
+##SILVA release 102
+
+rename.file(input=silva.bacteria.pcr.fasta,new=silva.v4.fasta)
+#Current files saved by mothur:
+fasta=silva.bacteria.pcr.fasta
+group=BDMSL16.contigs.good.groups
+name=BDMSL16.trim.contigs.good.names
+oligos=pcrtest.oligos.txt
+count=BDMSL16.trim.contigs.good.count_table
+processors=8
+summary=ecoli16srrna.pcr.summary
+
+summary.seqs(fasta=silva.v4.fasta)
+## of Seqs:	14956
+
+Output File Names: 
+silva.v4.summary
+
+align.seqs(fasta=BDMSL16.trim.contigs.good.unique.fasta, reference=silva.v4.fasta)
+#Output File Names: 
+BDMSL16.trim.contigs.good.unique.align
+BDMSL16.trim.contigs.good.unique.align.report
+BDMSL16.trim.contigs.good.unique.flip.accnos
+
+align.seqs(fasta=BDMSL16.trim.contigs.good.unique.fasta, reference=silva.v4.fasta,flip=t)
+
+#Output File Names: 
+BDMSL16.trim.contigs.good.unique.align
+BDMSL16.trim.contigs.good.unique.align.report
+BDMSL16.trim.contigs.good.unique.flip.accnos
+
+summary.seqs(fasta=current,count=current)
+## of unique seqs:	1198611
+total # of seqs:	11142076
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.summary
+
+screen.seqs(fasta=BDMSL16.trim.contigs.good.unique.align,count=BDMSL16.trim.contigs.good.count_table,summary=BDMSL16.trim.contigs.good.unique.summary,start=8,end=9582,maxhomop=8)
+#Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.summary
+BDMSL16.trim.contigs.good.unique.good.align
+BDMSL16.trim.contigs.good.unique.bad.accnos
+BDMSL16.trim.contigs.good.good.count_table
+
+summary.seqs(fasta=current, count=current)
+## of unique seqs:	1182075
+total # of seqs:	11031776
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.summary
+
+filter.seqs(fasta=BDMSL16.trim.contigs.good.unique.good.align, vertical=T, trump=.)
+#Length of filtered alignment: 609
+Number of columns removed: 8973
+Length of the original alignment: 9582
+Number of sequences used to construct filter: 1182075
+
+Output File Names: 
+BDMSL16.filter
+BDMSL16.trim.contigs.good.unique.good.filter.fasta
+
+summary.seqs(fasta=current,count=current)
+## of unique seqs:	1182075
+total # of seqs:	11031776
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.summary
+
+unique.seqs(fasta=current,count=current)
+##1182075	1173462
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.count_table
+BDMSL16.trim.contigs.good.unique.good.filter.unique.fasta
+
+summary.seqs(fasta=current,count=current)
+## of unique seqs:	1173462
+total # of seqs:	11031776
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.summary
+
+chimera.vsearch(fasta=current,count=current,dereplicate=t)
+#Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.denovo.vsearch.pick.count_table
+BDMSL16.trim.contigs.good.unique.good.filter.unique.denovo.vsearch.chimeras
+BDMSL16.trim.contigs.good.unique.good.filter.unique.denovo.vsearch.accnos
+
+pre.cluster(fasta=BDMSL16.trim.contigs.good.unique.good.filter.unique.fasta,count=BDMSL16.trim.contigs.good.unique.good.filter.count_table,diffs=2)
+##Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.fasta
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.count_table
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150001BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150002BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150003BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150004BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150005BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150006BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150007BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150008BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150009BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150010BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150011BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150012BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150013BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150014BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150015BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150016BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150017BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150018BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150019BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150020BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150021BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150029BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150030BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150031BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150032BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150033BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150034BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150035BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150036BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150037BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150038BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150039BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150040BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150041BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150042BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150043BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150044BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150045BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150046BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150047BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150048BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05150049BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160001BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160002BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160003BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160004BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160005BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160006BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160007BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160008BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160009BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160010BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160011BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160012BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160013BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160014BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160015BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160016BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160017BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160018BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160019BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160020BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160021BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160029BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160030BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160031BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160032BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160033BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160034BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160035BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160036BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160037BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160038BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160039BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160040BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160041BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160042BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160043BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160044BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160045BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160046BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160047BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160048BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM05160049BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150001BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150002BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150003BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150004BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150005BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150006BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150007BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150008BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150009BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150010BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150011BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150012BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150013BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150014BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150015BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150016BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150017BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150018BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150019BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150020BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150021BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150029BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150030BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150031BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150032BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150033BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150034BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150035BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150036BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150037BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150038BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150039BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150040BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150041BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150042BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150043BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150044BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150045BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150046BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150047BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150048BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09150049BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160001BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160002BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160003BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160004BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160005BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160006BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160007BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160008BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160009BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160010BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160011BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160012BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160013BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160014BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160015BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160016BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160017BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160018BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160019BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160020BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160021BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160029BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160030BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160031BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160032BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160033BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160034BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160035BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160036BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160037BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160038BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160039BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160040BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160041BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160042BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160043BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160044BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160045BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160046BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160047BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160048BF.map
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.BDM09160049BF.map
+
+summary.seqs(fasta=current,count=current)
+## of unique seqs:	505415
+total # of seqs:	11031776
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.summary
+
+chimera.vsearch(fasta=current,count=current,dereplicate=t)
+#Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.chimeras
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.accnos
+
+remove.seqs(fasta=current,accnos=current)
+#Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta
+
+summary.seqs(fasta=current,count=current)
+## of unique seqs:	378719
+total # of seqs:	10784733
+
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.summary
+
+classify.seqs(fasta=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta,count=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table,reference=trainset9_032012.pds.fasta, taxonomy=trainset9_032012.pds.tax, cutoff=80)
+
+##Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.taxonomy
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.tax.summary
+
+remove.lineage(fasta=current,count=current,taxonomy=current,taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)
+##Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table
+
+summary.tax(taxonomy=current,count=current)
+##Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tax.summary
+
+
+phylotype(taxonomy=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy)
+
+## 1
+2
+3
+4
+5
+6
+
+#
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.sabund
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.rabund
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.list
+
+
+
+
+mothur > make.shared(list=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.list, count=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, label=1)
+
+
+
+##
+Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.shared
+
+
+
+
+mothur > classify.otu(list=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.list, count=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, taxonomy=BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, label=1)
+
+
+#reftaxonomy is not required, but if given will keep the rankIDs in the summary file static.
+
+1733
+
+
+
+#Output File Names: 
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.taxonomy
+BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.tax.summary
+
+
+
+
+## SHARED and TAXONOMY files were imported for further processing and data visualization in R.

@@ -1,0 +1,85 @@
+,OTU,Sample,Abundance,Group,Smple.ID,Treatment,Rep,Year_Month,Season,Location,Season_Location,Season_Year_Location,Year,Kingdom,Phylum,Class,Order,Family,Genus
+110410,Otu061,BDM09160043BF,0.010284168,BDM09160043BF,301,Naturecycle,3,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110416,Otu061,BDM09160034BF,0.009757798,BDM09160034BF,107,Organix,1,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110418,Otu061,BDM09160045BF,0.009129114,BDM09160045BF,304,Polyethylene,3,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110419,Otu061,BDM09160041BF,0.00902938,BDM09160041BF,206,Naturecycle,2,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110422,Otu061,BDM09160038BF,0.008243029,BDM09160038BF,203,Weedguard,2,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110427,Otu061,BDM09160029BF,0.007008659,BDM09160029BF,101,Weedguard,1,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110428,Otu061,BDM09160030BF,0.006861308,BDM09160030BF,102,BioAgri,1,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110431,Otu061,BDM09160031BF,0.006618306,BDM09160031BF,103,PLA/PHA,1,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110438,Otu061,BDM09160036BF,0.005991305,BDM09160036BF,201,PLA/PHA,2,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110439,Otu061,BDM09160039BF,0.005940789,BDM09160039BF,204,BioAgri,2,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110440,Otu061,BDM09160032BF,0.00572779,BDM09160032BF,105,Naturecycle,1,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110442,Otu061,BDM09160035BF,0.005640951,BDM09160035BF,108,Polyethylene,1,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110447,Otu061,BDM09160047BF,0.005342806,BDM09160047BF,306,PLA/PHA,3,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110451,Otu061,BDM09150030BF,0.005275405,BDM09150030BF,102,BioAgri,1,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110453,Otu061,BDM09160037BF,0.005186105,BDM09160037BF,202,No Mulch,2,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110457,Otu061,BDM09160049BF,0.00496793,BDM09160049BF,308,Organix,3,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110458,Otu061,BDM05160018BF,0.004962986,BDM05160018BF,305,BioAgri,3,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110461,Otu061,BDM09160042BF,0.004744106,BDM09160042BF,207,Polyethylene,2,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110462,Otu061,BDM09160033BF,0.004726206,BDM09160033BF,106,No Mulch,1,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110463,Otu061,BDM09150032BF,0.004675579,BDM09150032BF,105,Naturecycle,1,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110466,Otu061,BDM09160044BF,0.00465756,BDM09160044BF,302,Weedguard,3,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110468,Otu061,BDM09160046BF,0.004609346,BDM09160046BF,305,BioAgri,3,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110471,Otu061,BDM09150036BF,0.004271302,BDM09150036BF,201,PLA/PHA,2,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110472,Otu061,BDM09150031BF,0.004229425,BDM09150031BF,103,PLA/PHA,1,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110476,Otu061,BDM09150034BF,0.004008395,BDM09150034BF,107,Organix,1,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110477,Otu061,BDM09150035BF,0.004006,BDM09150035BF,108,Polyethylene,1,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110481,Otu061,BDM09150048BF,0.003936373,BDM09150048BF,307,No Mulch,3,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110483,Otu061,BDM09150046BF,0.003786417,BDM09150046BF,305,BioAgri,3,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110486,Otu061,BDM09150029BF,0.003748126,BDM09150029BF,101,Weedguard,1,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110488,Otu061,BDM09150033BF,0.003656488,BDM09150033BF,106,No Mulch,1,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110489,Otu061,BDM05160004BF,0.003653121,BDM05160004BF,105,Naturecycle,1,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110491,Otu061,BDM09160040BF,0.003603731,BDM09160040BF,205,Organix,2,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110492,Otu061,BDM05160007BF,0.003561491,BDM05160007BF,108,Polyethylene,1,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110493,Otu061,BDM09150043BF,0.00354218,BDM09150043BF,301,Naturecycle,3,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110494,Otu061,BDM09150047BF,0.003500446,BDM09150047BF,306,PLA/PHA,3,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110495,Otu061,BDM05160014BF,0.003493688,BDM05160014BF,207,Polyethylene,2,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110496,Otu061,BDM09150038BF,0.003413746,BDM09150038BF,203,Weedguard,2,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110497,Otu061,BDM05160013BF,0.00329859,BDM05160013BF,206,Naturecycle,2,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110498,Otu061,BDM09160048BF,0.003295143,BDM09160048BF,307,No Mulch,3,2016-09,Fall2016,WA,FallWA,09-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110499,Otu061,BDM09150037BF,0.003242985,BDM09150037BF,202,No Mulch,2,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110500,Otu061,BDM09150041BF,0.003204367,BDM09150041BF,206,Naturecycle,2,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110502,Otu061,BDM05160008BF,0.003127825,BDM05160008BF,201,PLA/PHA,2,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110503,Otu061,BDM05150031BF,0.003032053,BDM05150031BF,103,PLA/PHA,1,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110504,Otu061,BDM05160002BF,0.003029704,BDM05160002BF,102,BioAgri,1,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110505,Otu061,BDM05160020BF,0.003018029,BDM05160020BF,307,No Mulch,3,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110506,Otu061,BDM09150042BF,0.002981271,BDM09150042BF,207,Polyethylene,2,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110507,Otu061,BDM05160019BF,0.002978085,BDM05160019BF,306,PLA/PHA,3,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110508,Otu061,BDM05160009BF,0.002906218,BDM05160009BF,202,No Mulch,2,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110509,Otu061,BDM05160010BF,0.002891539,BDM05160010BF,203,Weedguard,2,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110510,Otu061,BDM09150040BF,0.002888538,BDM09150040BF,205,Organix,2,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110511,Otu061,BDM05160006BF,0.00288786,BDM05160006BF,107,Organix,1,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110512,Otu061,BDM09150045BF,0.002886691,BDM09150045BF,304,Polyethylene,3,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110513,Otu061,BDM09150049BF,0.002792368,BDM09150049BF,308,Organix,3,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110514,Otu061,BDM05150034BF,0.002789036,BDM05150034BF,107,Organix,1,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110515,Otu061,BDM05160003BF,0.002675448,BDM05160003BF,103,PLA/PHA,1,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110516,Otu061,BDM05150047BF,0.002675064,BDM05150047BF,306,PLA/PHA,3,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110517,Otu061,BDM05160015BF,0.00259331,BDM05160015BF,301,Naturecycle,3,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110518,Otu061,BDM05160012BF,0.002501093,BDM05160012BF,205,Organix,2,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110519,Otu061,BDM05160005BF,0.002498738,BDM05160005BF,106,No Mulch,1,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110520,Otu061,BDM05160011BF,0.002398329,BDM05160011BF,204,BioAgri,2,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110521,Otu061,BDM05150039BF,0.002269317,BDM05150039BF,204,BioAgri,2,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110522,Otu061,BDM05150032BF,0.002249541,BDM05150032BF,105,Naturecycle,1,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110523,Otu061,BDM09150039BF,0.00221342,BDM09150039BF,204,BioAgri,2,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110524,Otu061,BDM05160017BF,0.002191555,BDM05160017BF,304,Polyethylene,3,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110525,Otu061,BDM05160016BF,0.002123894,BDM05160016BF,302,Weedguard,3,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110526,Otu061,BDM05150035BF,0.002069725,BDM05150035BF,108,Polyethylene,1,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110527,Otu061,BDM05150048BF,0.002047808,BDM05150048BF,307,No Mulch,3,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110528,Otu061,BDM05150033BF,0.002043372,BDM05150033BF,106,No Mulch,1,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110529,Otu061,BDM05150040BF,0.002030477,BDM05150040BF,205,Organix,2,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110530,Otu061,BDM05160001BF,0.001987653,BDM05160001BF,101,Weedguard,1,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110531,Otu061,BDM05150046BF,0.001968619,BDM05150046BF,305,BioAgri,3,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110532,Otu061,BDM05150030BF,0.00192617,BDM05150030BF,102,BioAgri,1,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110533,Otu061,BDM09150044BF,0.00191984,BDM09150044BF,302,Weedguard,3,2015-09,Fall2015,WA,FallWA,09-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110534,Otu061,BDM05150045BF,0.001918305,BDM05150045BF,304,Polyethylene,3,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110535,Otu061,BDM05150037BF,0.001841155,BDM05150037BF,202,No Mulch,2,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110536,Otu061,BDM05150043BF,0.001819066,BDM05150043BF,301,Naturecycle,3,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110537,Otu061,BDM05150042BF,0.00178446,BDM05150042BF,207,Polyethylene,2,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110538,Otu061,BDM05150049BF,0.001774389,BDM05150049BF,308,Organix,3,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110539,Otu061,BDM05150038BF,0.001694621,BDM05150038BF,203,Weedguard,2,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110540,Otu061,BDM05150036BF,0.001691758,BDM05150036BF,201,PLA/PHA,2,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110541,Otu061,BDM05160021BF,0.001687156,BDM05160021BF,308,Organix,3,2016-05,Spring2016,WA,SpringWA,05-2016WA,2016,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110542,Otu061,BDM05150029BF,0.001606652,BDM05150029BF,101,Weedguard,1,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110543,Otu061,BDM05150044BF,0.001587094,BDM05150044BF,302,Weedguard,3,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
+110544,Otu061,BDM05150041BF,0.001318077,BDM05150041BF,206,Naturecycle,2,2015-05,Spring2015,WA,SpringWA,05-2015WA,2015,Bacteria,Actinobacteria,Actinobacteria,Actinomycetales,Streptomycetaceae,Streptomyces
