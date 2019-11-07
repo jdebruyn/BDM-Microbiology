@@ -1,6 +1,6 @@
 # BDM-Microbiology
 
-This respository contains files to accompany: Bandopadhyay S, H Sintim, JM DeBruyn. Structural and Functional Responses of Soil Microbial Communities to Biodegradable Plastic Film Mulching in Two Agroecosystems.  Submitted to Applied and Environmental Microbiology, May 2019.
+This respository contains files to accompany: Bandopadhyay S, H Sintim, JM DeBruyn. Effects of biodegradable plastic film mulching on soil microbial communities in two agroecosystems.  Submitted to PeerJ, November 2019.
 
 
 Mothur and R files folder contains codes and associated .csv files used for input.
