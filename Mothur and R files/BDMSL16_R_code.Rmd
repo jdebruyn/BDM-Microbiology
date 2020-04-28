@@ -1,0 +1,720 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+##Libraries
+```{r}
+#load libraries
+library(ggplot2)
+library(phyloseq)
+library(dplyr)
+library(vegan)
+library(reshape2)
+library(scales)
+library(grid)
+#set working directory
+##setwd("C:\\Users\\sbandopa\\Documents\\BDM project\\Exp 1 A B\\Soil metagenome 2016\\4627-JMD-P1_P2\\BDMSL 16analyses\\R file script for AEM")
+#or go to session > set working directory in mac
+getwd()
+#source code file
+#miseqR.R can be found in this repository
+
+source("git_repos/Microbe MiSeq/R/miseqR.R")
+
+```
+
+##Data import
+```{r}
+#assign variables for imported data
+sharedfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.shared"
+taxfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.taxonomy"
+mapfile="metadataSL.csv"
+
+#import mothur data
+mothur_data<-import_mothur(mothur_shared_file=sharedfile,mothur_constaxonomy_file = taxfile)
+
+#import sample metadata
+map<-read.csv(mapfile)
+head(map)
+map <- sample_data(map)
+
+#assign rownames to be sample IDs/Group
+rownames(map)<-map$Group
+
+#merge mothur data object with metadata
+moth_merge <- merge_phyloseq(mothur_data, map)
+moth_merge
+colnames(tax_table(moth_merge))
+colnames(tax_table(moth_merge)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")
+
+#filter out Eukaryotes, Archaea, chloroplasts and mitochondria
+moth_merge_update<-moth_merge %>%
+  subset_taxa(
+    Kingdom=="Bacteria" &
+      Family!="mitochondria"&
+      Class!="Chloroplast"
+  )
+
+moth_merge_update
+```
+
+
+##Sample summary
+```{r}
+#Looking at distribution of read counts from our sample
+sample_sum_df <- data.frame(sum = sample_sums(moth_merge_update))
+ggplot(sample_sum_df, aes(x = sum)) + 
+  geom_histogram(color = "black", fill = "indianred", binwidth = 2500) +
+  ggtitle("Distribution of sample sequencing depth") + 
+  xlab("Read counts") +
+  theme(axis.title.y = element_blank())
+```
+
+##Stacked barplots across seasons (Spring 2015-Fall 2016) for TN and WA
+```{r}
+#melt to long format, prune out class below 2% in each sample
+moth_merge_update_class <- moth_merge_update %>%
+  tax_glom(taxrank = "Class") %>%                        # agglomerate at Class level
+  transform_sample_counts(function(x) {x/sum(x)} ) %>%   #transform to relative abundance
+  psmelt() %>%                                          # Melt to long format
+  filter(Abundance > 0.02) %>%                           # filter out low abundance taxa
+  arrange(Class)
+
+#set colors for plotting
+
+Class_colors <- c(
+  "#CBD588", "#5F7FC7", "orange","#DA5724", "#508578", "#CD9BCD",
+  "#AD6F3B", "#673770","#D14285", "#652926", "#C84248", 
+  "#8569D5", "#5E738F","#D1A33D", "#8A7C64", "#599861"
+)
+
+
+moth_merge_update_class_1 <- moth_merge_update_class %>%
+  arrange(Class) %>%
+  group_by(Year_Month)
+
+View(moth_merge_update_class_1)
+
+#example plot shown for soil bacterial communities in TN and WA by Location (averaged across seasons)
+# plot divides abundance by 3, solves the problem of Y axis values being 3
+moth_merge_update_class_1$season_f = factor(moth_merge_update_class_1$Season, levels=c('Spring2015','Fall2015','Spring2016','Fall2016'))
+stack_plot<-ggplot(moth_merge_update_class_1, aes(x = Treatment, y = Abundance/3, fill = Class)) + 
+  facet_grid(Location~season_f,scales="free", space="free") +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = Class_colors) +
+  # Remove x axis title
+  theme(axis.title.x = element_blank()) + 
+  guides(fill = guide_legend(reverse = TRUE, keywidth = 1, keyheight = 1)) +
+  ylab("Mean Relative Abundance") + theme_classic()+
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5, hjust = 1)) +
+  theme(legend.position = "right") +
+  theme(legend.text=element_text(size=8))
+stack_plot
+ggsave(filename="TNWAstackplot.TIFF", plot=stack_plot, width=6.8, height=6, units="in", dpi=720)
+
+```
+
+
+##Locational differences using barplot
+```{r}
+
+#differences by location (using SL dataset),bar plot with most dominant taxa (dominant taxa means.csv) after removing bacteria_unclassified
+
+x <-read.csv("dominant taxa means.csv")
+
+loc<- ggplot(x, aes(y=mean_abundance, x= Class, fill = Location)) +
+  geom_bar(stat="identity", width=0.8, position="dodge")+theme_classic()+
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5, hjust = 1)) +
+  ylab("Mean Relative Abundance")
+loc
+ggsave(filename="location.TIFF", plot=loc, width=6.8, height=6, dpi=720)
+
+#example statistics
+y <-read.csv("gp6.csv")
+model=lm(y$Abundance ~ y$Location )
+ANOVA=aov(model)
+summary(ANOVA)
+
+TukeyHSD(ANOVA)
+```
+
+
+
+##Similarity percentage analyses (SIMPER)
+```{r}
+
+#simper (location )
+otutableSL<-read.csv("otutable_SL.csv",row.names = 1)  
+metadataSL<-read.csv("simpermetadata_SL.csv",row.names = 1)
+simperfitSL<-simper(otutableSL,metadataSL$Location,permutations = 999)
+summary(simperfitSL)
+simperfitSL
+
+
+#simper (for Year_Month and location )
+#TN
+otutableTN<-read.csv("otutable_TN.csv",row.names = 1)  
+metadataTN<-read.csv("simpermetadata_TN.csv",row.names = 1)
+simperfitTN<-simper(otutableTN, metadataTN$Year_Month,permutations = 999)
+summary(simperfitTN)
+simperfitTN
+
+#WA
+otutableWA<-read.csv("otutable_WA.csv",row.names = 1)  
+metadataWA<-read.csv("simpermetadata_WA.csv",row.names = 1)
+simperfitWA<-simper(otutableWA, metadataWA$Year_Month,permutations = 999)
+summary(simperfitWA)
+simperfitWA
+```
+
+
+##ANOVAs to test differences in Mean relative abundance of taxa between seasons of sampling. taxa picked using SIMPER results.These results are reported in the manuscript.
+```{r}
+#scale reads to even depth
+moth_merge_update_scale <- moth_merge_update %>% 
+scale_reads(round = "round")
+#subset taxa #change genus as needed to subset desired taxa 
+
+ss <- subset_taxa(moth_merge_update_scale, Genus %in% c('Gp16'))
+
+glom <- tax_glom(ss, taxrank = 'Genus')
+
+dat <- psmelt(glom) # create data frame
+
+#most influential taxa were put together into a table (alltaxa.csv) based on SIMPER results. The combined plot for all was plotted using the code below:
+
+
+alltaxa<- read.csv("all taxa.csv")
+alltaxa<- ggplot(alltaxa, aes(y=Abundance, x= Year_Month, fill = Year_Month)) + geom_boxplot() + 
+  facet_grid(Genus1~Location, scales = "free_y") +stat_boxplot(geom="errorbar") +
+  theme_classic()+
+  ylab("Relative abundance") +
+  scale_color_manual(values = c("#a65628", "red", "#ffae19", "#4daf4a")) +
+  scale_x_discrete(
+    limits=c("2015-05", "2015-09", "2016-05","2016-09"),
+    breaks = c("2015-05", "2015-09", "2016-05","2016-09"),
+    labels = c("2015-05", "2015-09", "2016-05","2016-09"), 
+    drop = FALSE)+theme(axis.text.x = element_text(angle = 90, vjust=0.5, hjust = 1))+
+  theme( axis.title.x = element_blank())+
+theme(legend.position="none")
+alltaxa
+ggsave(filename="alltaxa.TIFF", plot=alltaxa, width=6, height=9.0625, units="in", dpi=720)
+
+#Tukey HSD statistics across seasons shown for one taxa data set (Streptomyces relative abundance in WA)
+library(multcompView)
+
+# Create data
+strepWA<- read.csv("strep WA.csv")
+# What is the effect of the season on the value ?
+model=lm(strepWA$Abundance ~ strepWA$Season )
+ANOVA=aov(model)
+summary(ANOVA)
+# Tukey test to study each pair of treatment :
+TUKEY <- TukeyHSD(x=ANOVA, 'strepWA$Season', conf.level=0.95)
+
+# Tuckey test representation :
+plot(TUKEY , las=1 , col="brown" )
+
+
+# I need to group the treatments that are not different each other together.
+generate_label_df <- function(TUKEY, variable){
+  
+  # Extract labels and factor levels from Tukey post-hoc
+  Tukey.levels <- TUKEY[[variable]][,4]
+  Tukey.labels <- data.frame(multcompLetters(Tukey.levels)['Letters'])
+  
+  #I need to put the labels in the same order as in the boxplot :
+  Tukey.labels$Season=rownames(Tukey.labels)
+  Tukey.labels=Tukey.labels[order(Tukey.labels$Season) , ]
+  return(Tukey.labels)
+}
+# Apply the function on my dataset
+LABELS=generate_label_df(TUKEY , "strepWA$Season")
+
+
+# A panel of colors to draw each group with the same color :
+my_colors=c( rgb(143,199,74,maxColorValue = 255),rgb(242,104,34,maxColorValue = 255), rgb(111,145,202,maxColorValue = 255),rgb(254,188,18,maxColorValue = 255) , rgb(74,132,54,maxColorValue = 255),rgb(236,33,39,maxColorValue = 255),rgb(165,103,40,maxColorValue = 255))
+
+# Draw the basic boxplot
+a=boxplot(strepWA$Abundance ~ strepWA$Season , ylim=c(min(strepWA$Abundance) , 1.1*max(strepWA$Abundance)) , col=my_colors[as.numeric(LABELS[,1])] , ylab="Abundance" , main="")
+
+# I Want to write the letter over each box. Over= means how high I Want to write it.
+over=0.1*max( a$stats[nrow(a$stats),] )
+
+#Add the labels
+text( c(1:nlevels(strepWA$Season)) , a$stats[nrow(a$stats),]+over , LABELS[,1]  , col=my_colors[as.numeric(LABELS[,1])] )
+
+```
+##Unconstrained ordinations
+```{r}
+
+# Scale reads to even depth 
+moth_merge_update_scale <- moth_merge_update %>%
+  scale_reads(round = "round") 
+
+set.seed(1)
+
+# Ordinate
+moth_merge_update_nmds <- ordinate(
+  physeq = moth_merge_update_scale, 
+  method = "NMDS", 
+  distance = "bray"
+)
+# Plot 
+plot<-plot_ordination(
+  physeq = moth_merge_update_scale,
+  ordination = moth_merge_update_nmds,
+  color = "Location",
+  shape = "Treatment"
+)+scale_shape_manual(values=c(15,19,17,18,20,23,25))+scale_fill_manual(values=c("#a65628", "red", "#ffae19",
+                                                                       "#4daf4a", "#1919ff", "darkorchid3", "magenta"))+
+  theme_classic()+
+  geom_point(aes(color = Location), size = 4)+stat_ellipse(aes(color = Location, group=Location),type="norm")
+ggsave(filename="locationNMDS.TIFF", plot=plot, width=6.8, height=6, units="in", dpi=720)
+
+##NMDS plot (Season_Year)- using TN dataset (repeated similarly for WA data set)
+
+#assign variables for imported data
+sharedfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.shared"
+taxfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.taxonomy"
+mapfile="metadataTN.csv"
+
+#import mothur data
+mothur_data<-import_mothur(mothur_shared_file=sharedfile,mothur_constaxonomy_file = taxfile)
+
+#import sample metadata
+map<-read.csv(mapfile)
+head(map)
+map <- sample_data(map)
+
+#assign rownames to be sample IDs/Group
+rownames(map)<-map$Group
+
+#merge mothur data object with metadata
+moth_merge <- merge_phyloseq(mothur_data, map)
+moth_merge
+colnames(tax_table(moth_merge))
+colnames(tax_table(moth_merge)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")
+
+#filter out Eukaryotes, Archaea, chloroplasts and mitochondria
+moth_merge_update<-moth_merge %>%
+  subset_taxa(
+    Kingdom=="Bacteria" &
+      Family!="mitochondria"&
+      Class!="Chloroplast"
+  )
+
+moth_merge_update
+moth_merge_update_scale <- moth_merge_update %>%
+  scale_reads(round = "round") 
+
+set.seed(1)
+
+# Ordinate
+moth_merge_update_nmds <- ordinate(
+  physeq = moth_merge_update_scale, 
+  method = "NMDS", 
+  distance = "bray"
+)
+
+plot1<- plot_ordination(
+  physeq = moth_merge_update_scale,
+  ordination = moth_merge_update_nmds,
+  color = "Year_Month",
+  shape = "Treatment"
+  
+)+scale_shape_manual(values=c(15,19,17,18,20,23,25))+scale_fill_manual(values=c("#a65628", "red", "#ffae19",
+                                                                                "#4daf4a", "#1919ff", "darkorchid3", "magenta"))+
+  theme_classic()+
+  geom_point(aes(color = Year_Month), size = 4)+stat_ellipse(aes(color = Year_Month, group=Year_Month),type="norm")
+plot1
+ggsave(filename="TNMDS.TIFF", plot=plot1, width=6.8, height=6, units="in", dpi=720)
+
+##NMDS plot (Treatment) for TN Fall 2016 data set - repeated similarly for WA Fall 2016 data set.
+#assign variables for imported data
+sharedfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.shared"
+taxfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.taxonomy"
+mapfile="metadataFall2016TN.csv"
+
+#import mothur data
+mothur_data<-import_mothur(mothur_shared_file=sharedfile,mothur_constaxonomy_file = taxfile)
+
+#import sample metadata
+map<-read.csv(mapfile)
+head(map)
+map <- sample_data(map)
+
+#assign rownames to be sample IDs/Group
+rownames(map)<-map$Group
+
+#merge mothur data object with metadata
+moth_merge <- merge_phyloseq(mothur_data, map)
+moth_merge
+colnames(tax_table(moth_merge))
+colnames(tax_table(moth_merge)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")
+
+#filter out Eukaryotes, Archaea, chloroplasts and mitochondria
+moth_merge_update<-moth_merge %>%
+  subset_taxa(
+    Kingdom=="Bacteria" &
+      Family!="mitochondria"&
+      Class!="Chloroplast"
+  )
+
+moth_merge_update
+moth_merge_update_scale <- moth_merge_update %>%
+  scale_reads(round = "round") 
+
+set.seed(1)
+
+# Ordinate
+moth_merge_update_nmds <- ordinate(
+  physeq = moth_merge_update_scale, 
+  method = "NMDS", 
+  distance = "bray"
+)
+
+plot2<- plot_ordination(
+  physeq = moth_merge_update_scale,
+  ordination = moth_merge_update_nmds,
+  color = "Treatment",
+  shape = "Treatment"
+  
+)+scale_shape_manual(values=c(15,16,17,18,19,20,8))+scale_fill_manual(values=c("#a65628", "red", "#ffae19",
+                                                                                "#4daf4a", "#1919ff", "darkorchid3", "magenta"))+
+  theme_classic()+
+  geom_point(aes(color = Treatment), size = 4)
+plot2
+ggsave(filename="WAFall2016.TIFF", plot=plot2, width=5, height=4, units="in", dpi=720)
+
+#example permanova with Location
+
+#assign variables for imported data
+sharedfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.shared"
+taxfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.taxonomy"
+mapfile="metadataSL.csv"
+
+#import mothur data
+mothur_data<-import_mothur(mothur_shared_file=sharedfile,mothur_constaxonomy_file = taxfile)
+
+#import sample metadata
+map<-read.csv(mapfile)
+head(map)
+map <- sample_data(map)
+
+#assign rownames to be sample IDs/Group
+rownames(map)<-map$Group
+
+#merge mothur data object with metadata
+moth_merge <- merge_phyloseq(mothur_data, map)
+moth_merge
+colnames(tax_table(moth_merge))
+colnames(tax_table(moth_merge)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")
+
+#filter out Eukaryotes, Archaea, chloroplasts and mitochondria
+moth_merge_update<-moth_merge %>%
+  subset_taxa(
+    Kingdom=="Bacteria" &
+      Family!="mitochondria"&
+      Class!="Chloroplast"
+  )
+
+moth_merge_update
+
+moth_merge_update_scale <- moth_merge_update %>%
+  scale_reads(round = "round") 
+set.seed(1)
+
+# Calculate bray curtis distance matrix
+moth_merge_update_bray <- phyloseq::distance(moth_merge_update_scale, method = "bray")
+
+# make a data frame from the sample_data
+sampledf <- data.frame(sample_data(moth_merge_update))
+
+# Adonis test
+adonis(moth_merge_update_bray ~ Location, data = sampledf)
+
+
+
+# Homogeneity of dispersion test
+beta <- betadisper(moth_merge_update_bray, sampledf$Location)
+permutest(beta)
+
+```
+##Constrained ordinations. Plot shows data combined over all seasons. Manuscript reports plot from FALL 2016 only.
+```{r}
+sharedfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.shared"
+taxfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.taxonomy"
+mapfile="metadata_Fall2016.csv"
+mothur_data<-import_mothur(mothur_shared_file=sharedfile,mothur_constaxonomy_file = taxfile)
+map<-read.csv(mapfile)
+head(map)
+map <- sample_data(map)
+rownames(map)<-map$Group
+#rownames(map) <- sample_names(mothur_data)
+moth_merge <- merge_phyloseq(mothur_data, map)
+moth_merge
+colnames(tax_table(moth_merge))
+colnames(tax_table(moth_merge)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")
+
+moth_merge_update<-moth_merge %>%
+  subset_taxa(
+    Kingdom=="Bacteria" &
+      Family!="mitochondria"&
+      Class!="Chloroplast"
+  )
+
+moth_merge_update
+moth_merge_update_scale <- moth_merge_update %>%
+  scale_reads(round = "round")
+
+sample_data(moth_merge_update_scale)$Location<- factor(
+  sample_data(moth_merge_update_scale)$Location, 
+  levels = c("TN", "WA")
+)
+
+bray <- phyloseq::distance(physeq = moth_merge_update_scale, method = "bray")
+
+
+# CAP ordinate
+cap_ord <- ordinate(
+  physeq = moth_merge_update_scale, 
+  method = "CAP",
+  distance = bray,
+  formula = ~ soilph + solsalt + no3ppm + GSM + om + exca + exmg + exk + exna
+)
+
+# CAP plot
+cap_plot <- plot_ordination(
+  physeq = moth_merge_update_scale, 
+  ordination = cap_ord, 
+  color = "Treatment", 
+  axes = c(1,2)
+) + theme_classic()+
+  aes(shape = Location) + 
+  geom_point(aes(colour = Treatment), size = 4) + 
+   scale_color_manual(values=c("#a65628", "red", "#ffae19", "#4daf4a", 
+                               "#1919ff", "darkorchid3", "magenta"))+
+  scale_shape_manual(values=c(15,19))+
+  scale_fill_manual(values = c("#a65628", "red", "#ffae19", "#4daf4a", 
+                                "#1919ff", "darkorchid3", "magenta")
+  )
+
+
+# Now add the environmental variables as arrows
+arrowmat <- vegan::scores(cap_ord, display = "bp")
+
+# Add labels, make a data.frame
+arrowdf <- data.frame(labels = rownames(arrowmat), arrowmat)
+
+# Define the arrow aesthetic mapping
+arrow_map <- aes(xend = CAP1, 
+                 yend = CAP2, 
+                 x = 0, 
+                 y = 0, 
+                 shape = NULL, 
+                 color = NULL, 
+                 label = labels)
+
+label_map <- aes(x = 1.3 * CAP1, 
+                 y = 1.3 * CAP2, 
+                 shape = NULL, 
+                 color = NULL, 
+                 label = labels)
+
+arrowhead = arrow(length = unit(0.02, "npc"))
+
+# Make a new graphic
+plot<-cap_plot + 
+  geom_segment(
+    mapping = arrow_map, 
+    size = .5, 
+    data = arrowdf, 
+    color = "gray", 
+    arrow = arrowhead
+  ) + 
+  geom_text(
+    mapping = label_map, 
+    size = 4,  
+    data = arrowdf, 
+    show.legend = FALSE
+  )
+ggsave(filename="capord.TIFF", plot=plot, width=6.8, height=6, units="in", dpi=720)
+
+
+anova(cap_ord)
+
+```
+##alpha diversity estimates: Richness (number of unique OTUs)  and diversity (inverse simpson index)
+```{r}
+#assign variables for imported data
+sharedfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.shared"
+taxfile="BDMSL16.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.tx.1.cons.taxonomy"
+mapfile="metadataSL.csv"
+
+#import mothur data
+mothur_data<-import_mothur(mothur_shared_file=sharedfile,mothur_constaxonomy_file = taxfile)
+
+#import sample metadata
+map<-read.csv(mapfile)
+head(map)
+map <- sample_data(map)
+
+#assign rownames to be sample IDs/Group
+rownames(map)<-map$Group
+
+#merge mothur data object with metadata
+moth_merge <- merge_phyloseq(mothur_data, map)
+moth_merge
+colnames(tax_table(moth_merge))
+colnames(tax_table(moth_merge)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus")
+
+#filter out Eukaryotes, Archaea, chloroplasts and mitochondria
+moth_merge_update<-moth_merge %>%
+  subset_taxa(
+    Kingdom=="Bacteria" &
+      Family!="mitochondria"&
+      Class!="Chloroplast"
+  )
+
+moth_merge_update
+min_lib <- min(sample_sums(moth_merge_update))
+
+# Initialize matrices to store richness and evenness estimates
+nsamp = nsamples(moth_merge_update)
+trials = 100
+
+richness <- matrix(nrow = nsamp, ncol = trials)
+row.names(richness) <- sample_names(moth_merge_update)
+
+evenness <- matrix(nrow = nsamp, ncol = trials)
+row.names(evenness) <- sample_names(moth_merge_update)
+
+# It is always important to set a seed when you subsample so your result is replicable, note of caution that this will yield different results of alpha diversity depending on the version of R being used. This is because set.seed function can vary across R versions. Here I am reporting results from R v.3.4.0 
+set.seed(3)
+
+for (i in 1:100) {
+  # Subsample
+  r <- rarefy_even_depth(moth_merge_update, sample.size = min_lib, verbose = FALSE, replace = TRUE)
+  
+  # Calculate richness
+  rich <- as.numeric(as.matrix(estimate_richness(r, measures = "Observed")))
+  richness[ ,i] <- rich
+  
+  # Calculate evenness
+  even <- as.numeric(as.matrix(estimate_richness(r, measures = "InvSimpson")))
+  evenness[ ,i] <- even
+}
+# Create a new dataframe to hold the means and standard deviations of richness estimates
+Group <- row.names(richness)
+mean <- apply(richness, 1, mean)
+sd <- apply(richness, 1, sd)
+measure <- rep("Richness", nsamp)
+rich_stats <- data.frame(Group, mean, sd, measure)
+
+# Create a new dataframe to hold the means and standard deviations of evenness estimates
+Group <- row.names(evenness)
+mean <- apply(evenness, 1, mean)
+sd <- apply(evenness, 1, sd)
+measure <- rep("Inverse Simpson", nsamp)
+even_stats <- data.frame(Group, mean, sd, measure)
+
+alpha <- rbind(rich_stats, even_stats)
+
+s <- data.frame(sample_data(moth_merge_update))
+alphadiv <- merge(alpha, s, by = "Group") 
+
+write.csv(alphadiv,file = "alphadiv.csv")
+#alphadiv <- order_dates(alphadiv)
+alphadiv_WA<-alphadiv[alphadiv$Location=="WA",]
+dim(alphadiv_WA)
+
+alphadiv_TN<-alphadiv[alphadiv$Location=="TN",]
+dim(alphadiv_TN)
+
+View(alphadiv_TN)
+View(alphadiv_WA)
+write.csv(alphadiv_TN, file="alphadiv_TN.csv")
+write.csv(alphadiv_WA, file="alphadiv_WA.csv")
+
+
+levels(alphadiv_WA$Year_Month)<-c("Spring2015","Fall2015",  "Spring2016", "Fall2016")
+levels(alphadiv_TN$Year_Month)<-c("Spring2015","Fall2015",  "Spring2016", "Fall2016")
+
+group_TN<-alphadiv_TN%>%
+  group_by(Treatment,Year_Month,measure) %>%
+  summarise(mean_update = mean(mean))
+write.csv(group_TN, file="alphadivmean_TN.csv")
+
+group_WA<-alphadiv_WA%>%
+  group_by(Treatment,Year_Month,measure) %>%
+  summarise(mean_update = mean(mean))
+write.csv(group_WA, file="alphadivmean_WA.csv")
+
+# These .csv files were combined to generate two separte .csv files for richness (TN & WA combined) and diversity (TN & WA combined). Standard error of the means were computed and these final .csv files named "rich_se.csv" and IS_se.csv" were used for final plotting below
+#Richness
+library(ggplot2)
+library(dplyr)
+library(vegan)
+library(reshape2)
+library(scales)
+library(grid)
+library(readxl)
+theme_set(theme_bw())
+rich<- read.csv("rich_se.csv")
+
+pd<-position_dodge(0.7)
+
+rich<-ggplot(rich, aes(y=mean, x= Time, color = Treatment, group = Treatment)) +
+  facet_grid(~Location, scales="free", space="free") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se),width=1, size=0.4, position=pd)+
+  geom_line(size = 0.9, position=pd) + 
+  geom_point(size = 0.2, shape=16, position=pd) + theme_classic()+
+  ylab("Richness (number of observed OTUs)") +
+  scale_shape_manual(values=c(3, 15, 16, 17, 18, 25, 11)) + 
+  scale_color_manual(breaks=c("No Mulch","Polyethylene","Weedguard","BioAgri", "Naturecycle","Organix","PLA/PHA"),
+                     values=c("No Mulch"="#000000","Polyethylene"="#E69F00","Weedguard"="#56B4E9","BioAgri"="#009E73", "Naturecycle"="#F0E442","Organix"="#0072B2","PLA/PHA"="#D55E00"))+
+  
+  scale_x_discrete(
+    limits=c("Spring 2015","Fall 2015","Spring 2016","Fall 2016"),
+    breaks = c("Spring 2015","Fall 2015","Spring 2016","Fall 2016"),
+    labels = c("Spring 2015","Fall 2015","Spring 2016","Fall 2016"), 
+    drop = FALSE)+
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5, hjust = 1, size=12)) +
+  theme(axis.text=element_text(size=12))+
+  theme(legend.position = "right") +
+  theme(legend.text=element_text(size=12))
+
+rich
+ggsave(filename="rich_300dpi.png", plot=rich, width=9, height=6.8, units="in", dpi=300)
+
+
+#Inverse Simpson
+IS<- read.csv("IS_se.csv")
+pd<-position_dodge(0.7)
+
+IS<-ggplot(IS, aes(y=mean, x= Time, color = Treatment, group = Treatment)) +
+  facet_grid(~Location, scales="free", space="free") +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se),width=1, size=0.4, position=pd)+
+  geom_line(size = 0.9, position=pd) + 
+  geom_point(size = 0.2, shape=16, position=pd) + theme_classic()+
+  ylab("inverse Simpson index") +
+  scale_shape_manual(values=c(3, 15, 16, 17, 18, 25, 11)) + 
+  scale_color_manual(breaks=c("No Mulch","Polyethylene","Weedguard","BioAgri", "Naturecycle","Organix","PLA/PHA"),
+            values=c("No Mulch"="#000000","Polyethylene"="#E69F00","Weedguard"="#56B4E9","BioAgri"="#009E73", "Naturecycle"="#F0E442","Organix"="#0072B2","PLA/PHA"="#D55E00"))+
+                        scale_x_discrete(
+                         limits=c("Spring 2015","Fall 2015","Spring 2016","Fall 2016"),
+                         breaks = c("Spring 2015","Fall 2015","Spring 2016","Fall 2016"),
+                         labels = c("Spring 2015","Fall 2015","Spring 2016","Fall 2016"), 
+                         drop = FALSE)+
+                       theme(axis.text.x = element_text(angle = 90, vjust=0.5, hjust = 1, size=12)) +
+                       theme(axis.text=element_text(size=12))+
+                       theme(legend.position = "right") +
+                       theme(legend.text=element_text(size=12))
+IS
+ggsave(filename="IS_300dpi.png", plot=IS, width=9, height=6.8, units="in", dpi=300)
+
+```
+
+
