@@ -7,3 +7,5 @@ Bandopadhyay S, Sintim HY, DeBruyn JM. 2020. Effects of biodegradable plastic fi
 Mothur and R files folder contains codes and associated .csv files used for input.
 Mothur code: BDMSL16_mothur code.txt
 R code: BDMSL16_R_code.Rmd
+
+Note: xquartz application will be needed for mac users to successfully run the script
